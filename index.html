@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Page</title>
+        <meta charset="utf-8">
+        <style>
+            .rect{
+                border: 2px solid black;
+                width: 400px;
+                height: 400px;
+            }
+
+            .line{
+                border: 1px solid black;
+                position: relative;
+                top: 50%;
+                padding: 0 200px;
+            }
+            .vertical{
+                transform: rotate(90deg);
+            }
+            .cir{
+                position: relative;
+                border: 1px solid black;
+                width: 50%;
+                height: 50%;
+                margin: 0;
+
+            }
+            .center{
+                width: 10px;
+                height: 10px;
+                background-color: green;
+                position: relative;
+                top: -5px;
+                left: 0px;
+                /* display: inline; */
+                /* border-radius: 100%; */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="rect" id="rect">
+            <div class="line vertical"></div>
+            <div class="line horizontal"></div>
+            <div class="center"></div>
+            <div class="cir"></div>
+            
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>

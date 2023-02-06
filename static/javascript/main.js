@@ -56,11 +56,12 @@ function unitCircle(){
     context.arc(200, 200, 120, 0, 2 * Math.PI);
     context.stroke();
     context.closePath();
- drawLine(5, 200, 395, 200);
- drawLine(200, 5, 200, 395);
+    drawLine(5, 200, 395, 200);
+    drawLine(200, 5, 200, 395);
 }
 
 unitCircle();
+
 
 class Zero_Pole{
     constructor(xpos, ypos){
@@ -91,6 +92,7 @@ class Zero_Pole{
 
 
 
+
 // let z = new Zero_Pole(8,17);
 // let y = new Zero_Pole(200,100);
 // let p = new Zero_Pole(200 + 120 - 8, 200 - 8);
@@ -100,20 +102,27 @@ class Zero_Pole{
 // p.drawPole(context, '1');
 // b.drawPole(context, '2');
 
-
+// let wrapper = document.getElementById('wrap');
 let zeroBtn = document.getElementById('zero');
 let poleBtn = document.getElementById('pole');
-let btnChecker;
+let trashBtn = document.getElementById('delete');
+let btnChecker = true;
+let deleteChecker = false;
 let zeros = [];
 let zeroCounter = -1;
 let poles = [];
 let poleCounter = -1;
 
+zeroBtn.setAttribute ("class", "button btn");
 zeroBtn.addEventListener('click', () => {
     if (poleBtn.getAttribute("class") == "button btn"){
         poleBtn.setAttribute ("class", "button");  
     }
+    if (trashBtn.getAttribute("class") == "button btn"){
+        trashBtn.setAttribute ("class", "button");  
+    }
     btnChecker = true;  
+    deleteChecker = false;
     zeroBtn.setAttribute ("class", "button btn");
 });
 
@@ -121,23 +130,86 @@ poleBtn.addEventListener('click', () => {
     if (zeroBtn.getAttribute ("class") == "button btn"){
         zeroBtn.setAttribute ("class", "button");
     }
+    if (trashBtn.getAttribute("class") == "button btn"){
+        trashBtn.setAttribute ("class", "button");  
+    }
     btnChecker = false;  
+    deleteChecker = false;
     poleBtn.setAttribute ("class", "button btn");
 });
 
-canvas.addEventListener('click', (event) => {
-    if (btnChecker){
-        zeroCounter += 1;
-        let dot = new Zero_Pole(event.offsetX,event.offsetY);
-        dot.drawZero(context);
-        zeros.push([event.offsetX,event.offsetY]);
-
-    }else{
-        poleCounter += 1;
-        let x = new Zero_Pole(event.offsetX - 8, event.offsetY - 8);
-        x.drawPole(context, `${poleCounter}`);
-        poles.push([event.offsetX, event.offsetY]);
-
+trashBtn.addEventListener('click', (event) => {
+    if (zeroBtn.getAttribute ("class") == "button btn"){
+        zeroBtn.setAttribute ("class", "button");
     }
-    // console.log(event);
-});
+    if (poleBtn.getAttribute("class") == "button btn"){
+        poleBtn.setAttribute ("class", "button");  
+    }
+    deleteChecker = true;
+    trashBtn.setAttribute ("class", "button btn");
+})
+
+canvas.addEventListener('mouseup', fn);
+
+// switch cases
+// case 0 : then put a zero or put a pole
+// case 2(right click): then open a context menu contains Delete function
+
+
+
+// canvas.addEventListener('contextmenu', (event) => {
+//     event.preventDefault(); // prevent the deafult context menu of the browser
+    
+//     wrapper.style.left = `${event.offsetX}px`;
+//     wrapper.style.top = `${event.offsetY}px`;
+//     wrapper.style.visibility = "visible";
+
+// });
+
+
+
+function fn(event){
+    switch (event.button){
+        case 0:
+            // wrapper.style.visibility = "hidden";
+            if (deleteChecker){
+                context.clearRect(event.offsetX - 8, event.offsetY - 8, 16, 16);
+                
+            }else{
+                if (btnChecker){
+                    zeroCounter += 1;
+                    let dot = new Zero_Pole(event.offsetX,event.offsetY);
+                    dot.drawZero(context);
+                    zeros.push([event.offsetX,event.offsetY]);
+            
+                }else{
+                    poleCounter += 1;
+                    let x = new Zero_Pole(event.offsetX - 8, event.offsetY - 8);
+                    x.drawPole(context, `${poleCounter}`);
+                    poles.push([event.offsetX, event.offsetY]);
+                    
+                    
+            
+                }
+            }
+            
+            break;
+        case 2:
+            canvas.addEventListener('contextmenu', (event) => {
+                event.preventDefault(); // prevent the deafult context menu of the browser
+                
+                // wrapper.style.left = `${event.offsetX}px`;
+                // wrapper.style.top = `${event.offsetY}px`;
+                // wrapper.style.visibility = "visible";
+                // wrapper.addEventListener('click', () => {
+                //     clear();
+                //     // canvas.removeChild(document.getElementById(identity));
+                //     wrapper.style.visibility = "hidden";
+                // });
+            
+            });
+            break;
+        default: 
+            console.log("unknown click");
+    }
+}
