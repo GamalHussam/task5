@@ -4,50 +4,9 @@
         <title>My Page</title>
         <meta charset="utf-8">
         <style>
-            .rect{
-                border: 2px solid black;
-                width: 300px;
-                height: 300px;
-                position: relative;
-                /* top: -208px;
-                margin: 0; */
-                /* display: inline-block; */
-            }
-
-            .line{
-                border: 1px solid black;
-                position: relative;
-            }
-            .vertical{
-                transform: rotate(90deg);
-            }
-            .cir{
-                /* border-radius: 100%; */
-                border: 2px solid black;
-                width: 200px;
-                height: 200px;
-                margin: auto;
-                position: relative;
-                /* display: inline-block; */
-                top: 50px
-
-            }
-            .axis{
-                width: 300px;
-                height: 150px;
-                position: relative;
-                top: -150px;
-            }
-            .center{
-                width: 10px;
-                height: 10px;
-                background-color: green;
-                position: relative;
-                /* margin: auto; */
-                /* display: inline-block; */
-                /* border-radius: 100%; */
-            }
+            
         </style>
+        <link rel="stylesheet" href="./style.css">
     </head>
     <body>
         
@@ -61,7 +20,38 @@
             <div class="line vertical"></div>
             <div class="line horizontal"></div>
         </div>
-        
+        <br>
+        <button class="button" id="zero">
+            <span class="button_text">Zero</span>
+            <span class="button_icon zero">
+                <ion-icon name="ellipse"></ion-icon>
+            </span>
+        </button>
+        <button class="button" id="pole">
+            <span class="button_text">Pole</span>
+            <span class="button_icon pole">
+                <ion-icon name="close"></ion-icon>
+            </span>
+        </button>
+        <!-- <button class="button" id="delete">
+            <span class="button_icon trash">
+                <ion-icon name="trash"></ion-icon>
+            </span>
+        </button> -->
+        <div class="wrapper" id="wrap">
+            <div class="content">
+                <ul class="menu">
+                    <li class="item">
+                        <ion-icon name="trash"></ion-icon>
+                        <span>Delete</span>
+                    </li>
+                </ul>
+            </div>
+        </div> 
+
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
         <script src="index.js"></script>
     </body>
