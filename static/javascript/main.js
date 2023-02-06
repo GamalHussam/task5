@@ -52,7 +52,7 @@ function drawLine(x0, y0, x1, y1){
 function unitCircle(){
     context.beginPath();
     context.lineWidth = 1;
-    context.strokeStyle = '#1ABC9C';
+    context.strokeStyle = 'black';
     context.arc(200, 200, 120, 0, 2 * Math.PI);
     context.stroke();
     context.closePath();
@@ -83,6 +83,7 @@ class Zero_Pole{
         img.src = "../static/close.png";
         img.id = id;
         canvas.appendChild(img);
+        img.addEventListener('mouseenter',fun);
         img.onload= () => {
             context.drawImage(img, this.x, this.y, 16, 16);
         };
@@ -174,6 +175,7 @@ function fn(event){
             // wrapper.style.visibility = "hidden";
             if (deleteChecker){
                 context.clearRect(event.offsetX - 8, event.offsetY - 8, 16, 16);
+                unitCircle();
                 
             }else{
                 if (btnChecker){
@@ -212,4 +214,8 @@ function fn(event){
         default: 
             console.log("unknown click");
     }
+}
+
+function fun(){
+    console.log("what the fuck");
 }
