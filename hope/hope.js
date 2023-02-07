@@ -94,6 +94,8 @@ trashBtn.addEventListener('click', (event) => {
 })
 
 let zero;
+let pole;
+const imgInstance = document.getElementById('image');
 
 function drawZero(x, y){
     zero = new fabric.Circle({
@@ -110,11 +112,53 @@ function drawZero(x, y){
     canvas.add(zero);
 }
 
+function drawPole(x, y){
+    pole = new fabric.Image(imgInstance, {
+        // width: 16,
+        // height: 16,
+        left: x,
+        top: y,
+        originX: 'center',
+        originY: 'center',
+        lockRotation: true,
+        lockScalingX: true,
+        lockScalingY: true,
+    });
+    pole.scaleToWidth(14, true);
+    pole.scaleToHeight(14, true);
+    canvas.add(pole);
+}
+
 canvas.on('mouse:up', (event) => {
-    console.log(event);
-    if (event.isClick){
-        console.log('yes');
-        console.log(event.pointer.x);
+    // console.log(event);
+    // if (event.isClick){
+    //     console.log('yes');
+    //     console.log(event.pointer.x);
+    //     console.log(event.pointer.y);
+    // }
+    if(deleteChecker){
+
+    }else{
+        if(btnChecker){
+            drawZero(event.pointer.x, event.pointer.y);
+        }else{
+            drawPole(event.pointer.x, event.pointer.y);
+        }
+
     }
-    drawZero(event.pointer.x, event.pointer.y);
+    
 });
+// pole = new fabric.Image(imgInstance, {
+//     // width: 16,
+//     // height: 16,
+//     left: 200,
+//     top: 200,
+//     originX: 'center',
+//     originY: 'center',
+//     lockRotation: true,
+//     lockScalingX: true,
+//     lockScalingY: true,
+// });
+// pole.scaleToWidth(16, true);
+// pole.scaleToHeight(16, true);
+// canvas.add(pole);
