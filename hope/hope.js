@@ -108,14 +108,14 @@ function drawZero(x, y){
         lockRotation: true,
         lockScalingX: true,
         lockScalingY: true,
+        hasBorders: false,
+        hasControls: false,
     });
     canvas.add(zero);
 }
 
 function drawPole(x, y){
     pole = new fabric.Image(imgInstance, {
-        // width: 16,
-        // height: 16,
         left: x,
         top: y,
         originX: 'center',
@@ -123,12 +123,23 @@ function drawPole(x, y){
         lockRotation: true,
         lockScalingX: true,
         lockScalingY: true,
+        hasBorders: false,
+        hasControls: false,
     });
-    pole.scaleToWidth(14, true);
-    pole.scaleToHeight(14, true);
+    pole.scaleToWidth(13, true);
+    pole.scaleToHeight(13, true);
     canvas.add(pole);
 }
 
+// window.onkeydown = onKeyDownHandler;
+// function onKeyDownHandler(e) {
+//     switch (e.keyCode) {
+//         case 46: // delete
+//             var activeObject = canvas.getActiveObject();
+//             if (!activeObject) canvas.remove(activeObject);
+//             return;
+//     }
+// };
 canvas.on('mouse:up', (event) => {
     // console.log(event);
     // if (event.isClick){
@@ -137,6 +148,13 @@ canvas.on('mouse:up', (event) => {
     //     console.log(event.pointer.y);
     // }
     if(deleteChecker){
+        // window.onkeydown = onKeyDownHandler;
+        let selection = canvas.getActiveObjects();
+        selection.forEach((obj) => {
+          canvas.remove(obj);
+        });
+        canvas.discardActiveObject();
+        // canvas.requestRenderAll();
 
     }else{
         if(btnChecker){
@@ -148,17 +166,3 @@ canvas.on('mouse:up', (event) => {
     }
     
 });
-// pole = new fabric.Image(imgInstance, {
-//     // width: 16,
-//     // height: 16,
-//     left: 200,
-//     top: 200,
-//     originX: 'center',
-//     originY: 'center',
-//     lockRotation: true,
-//     lockScalingX: true,
-//     lockScalingY: true,
-// });
-// pole.scaleToWidth(16, true);
-// pole.scaleToHeight(16, true);
-// canvas.add(pole);
