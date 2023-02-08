@@ -51,10 +51,12 @@ createUnitCircle();
 
 let btnChecker = true;
 let deleteChecker = false;
+let moveChecker = false;
 
 let zeroBtn = document.getElementById('zero');
 let poleBtn = document.getElementById('pole');
 let trashBtn = document.getElementById('delete');
+let moveBtn = document.getElementById('move');
 
 zeroBtn.setAttribute ("class", "button btn");
 zeroBtn.addEventListener('click', () => {
@@ -64,8 +66,12 @@ zeroBtn.addEventListener('click', () => {
     if (trashBtn.getAttribute("class") == "button btn"){
         trashBtn.setAttribute ("class", "button");  
     }
+    // if (moveBtn.getAttribute("class") == "button btn"){
+    //     moveBtn.setAttribute ("class", "button");  
+    // }
     btnChecker = true;  
     deleteChecker = false;
+    // moveChecker = false;
     zeroBtn.setAttribute ("class", "button btn");
     
 });
@@ -77,8 +83,12 @@ poleBtn.addEventListener('click', () => {
     if (trashBtn.getAttribute("class") == "button btn"){
         trashBtn.setAttribute ("class", "button");  
     }
+    // if (moveBtn.getAttribute("class") == "button btn"){
+    //     moveBtn.setAttribute ("class", "button");  
+    // }
     btnChecker = false;  
     deleteChecker = false;
+    // moveChecker = false;
     poleBtn.setAttribute ("class", "button btn");
 });
 
@@ -89,78 +99,124 @@ trashBtn.addEventListener('click', (event) => {
     if (poleBtn.getAttribute("class") == "button btn"){
         poleBtn.setAttribute ("class", "button");  
     }
+    // if (moveBtn.getAttribute("class") == "button btn"){
+    //     moveBtn.setAttribute ("class", "button");  
+    // }
     deleteChecker = true;
+    // moveChecker = false;
     trashBtn.setAttribute ("class", "button btn");
 })
+
+// moveBtn.addEventListener('click', () => {
+//     if (zeroBtn.getAttribute ("class") == "button btn"){
+//         zeroBtn.setAttribute ("class", "button");
+//     }
+//     if (poleBtn.getAttribute("class") == "button btn"){
+//         poleBtn.setAttribute ("class", "button");  
+//     }
+//     if (trashBtn.getAttribute("class") == "button btn"){
+//         trashBtn.setAttribute ("class", "button");  
+//     }
+//     deleteChecker = false;
+//     moveChecker = true;
+//     moveBtn.setAttribute ("class", "button btn");
+// });
 
 let zero;
 let pole;
 const imgInstance = document.getElementById('image');
+let zeroObj = {
+    radius: 5,
+    fill: 'green',
+    originX: 'center',
+    originY: 'center',
+    lockRotation: true,
+    lockScalingX: true,
+    lockScalingY: true,
+    lockMovementX: false,
+    lockMovementY: false,
+    hasBorders: false,
+    hasControls: false,
+    hoverCursor: 'default',
 
-function drawZero(x, y){
-    zero = new fabric.Circle({
-        radius: 5,
-        fill: 'green',
-        left: x,
-        top: y,
-        originX: 'center',
-        originY: 'center',
-        lockRotation: true,
-        lockScalingX: true,
-        lockScalingY: true,
-        hasBorders: false,
-        hasControls: false,
-    });
+};
+
+let poleObj = {
+    originX: 'center',
+    originY: 'center',
+    lockRotation: true,
+    lockScalingX: true,
+    lockScalingY: true,
+    hasBorders: false,
+    hasControls: false,
+    hoverCursor: 'default',
+};
+
+function drawZero(object, x, y){
+    object.left = x;
+    object.top = y;
+    zero = new fabric.Circle(object);
     canvas.add(zero);
 }
 
-function drawPole(x, y){
-    pole = new fabric.Image(imgInstance, {
-        left: x,
-        top: y,
-        originX: 'center',
-        originY: 'center',
-        lockRotation: true,
-        lockScalingX: true,
-        lockScalingY: true,
-        hasBorders: false,
-        hasControls: false,
-    });
+function drawPole(object, x, y){
+    object.left = x;
+    object.top = y;
+    pole = new fabric.Image(imgInstance, object);
     pole.scaleToWidth(13, true);
     pole.scaleToHeight(13, true);
     canvas.add(pole);
 }
 
-// window.onkeydown = onKeyDownHandler;
-// function onKeyDownHandler(e) {
-//     switch (e.keyCode) {
-//         case 46: // delete
-//             var activeObject = canvas.getActiveObject();
-//             if (!activeObject) canvas.remove(activeObject);
-//             return;
-//     }
-// };
-canvas.on('mouse:up', (event) => {
-    // console.log(event);
-    // if (event.isClick){
-    //     console.log('yes');
-    //     console.log(event.pointer.x);
-    //     console.log(event.pointer.y);
-    // }
+
+canvas.on('mouse:dblclick', (event) => {
+    console.log(event);
     if(deleteChecker){
-        // window.onkeydown = onKeyDownHandler;
+        
+        // if(deleteChecker){
+        //     let selection = canvas.getActiveObjects();
+        //     selection.forEach((obj) => {
+        //         canvas.remove(obj);
+        //     });
+        //     canvas.discardActiveObject();
+        //     // canvas.requestRenderAll();
+
+        // }else{
+        //     // canvas.on('before:transform', () => {
+        //     //     let selection = canvas.getActiveObjects();
+        //     //     selection.forEach((obj) => {
+        //     //         obj.lockMovementX = false;
+        //     //         obj.lockMovementY = false;
+        //     //         console.log(obj);
+        //     //     });
+        //     //     canvas.discardActiveObject();
+        //     // });
+        //     // console.log(zeroObj);
+        //     let selection = canvas.getActiveObjects();
+        //     selection.forEach((obj) => {
+        //         obj.lockMovementX = false;
+        //         obj.lockMovementY = false;
+        //         // console.log(obj);
+        //     });
+        //     canvas.discardActiveObject();
+        // }
+
         let selection = canvas.getActiveObjects();
         selection.forEach((obj) => {
-          canvas.remove(obj);
+            canvas.remove(obj);
         });
         canvas.discardActiveObject();
-        // canvas.requestRenderAll();
-
+        
     }else{
         if(btnChecker){
-            drawZero(event.pointer.x, event.pointer.y);
+            drawZero(zeroObj, event.pointer.x, event.pointer.y);
+            // console.log(event.pointer.x , event.pointer.y); sending this to back
+     
+
         }else{
-            drawPole(event.pointer.x, event.pointer.y);
+
+
+            drawPole(poleObj, event.pointer.x, event.pointer.y);
         }
 
     }
