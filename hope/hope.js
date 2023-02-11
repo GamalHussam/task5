@@ -170,47 +170,11 @@ function drawPole(object, x, y){
 
 
 canvas.on('mouse:dblclick', (event) => {
-    console.log(event);
-    if(deleteChecker){
-        
-        // if(deleteChecker){
-        //     let selection = canvas.getActiveObjects();
-        //     selection.forEach((obj) => {
-        //         canvas.remove(obj);
-        //     });
-        //     canvas.discardActiveObject();
-        //     // canvas.requestRenderAll();
-
-        // }else{
-        //     // canvas.on('before:transform', () => {
-        //     //     let selection = canvas.getActiveObjects();
-        //     //     selection.forEach((obj) => {
-        //     //         obj.lockMovementX = false;
-        //     //         obj.lockMovementY = false;
-        //     //         console.log(obj);
-        //     //     });
-        //     //     canvas.discardActiveObject();
-        //     // });
-        //     // console.log(zeroObj);
-        //     let selection = canvas.getActiveObjects();
-        //     selection.forEach((obj) => {
-        //         obj.lockMovementX = false;
-        //         obj.lockMovementY = false;
-        //         // console.log(obj);
-        //     });
-        //     canvas.discardActiveObject();
-        // }
-
-        let selection = canvas.getActiveObjects();
-        selection.forEach((obj) => {
-            canvas.remove(obj);
-        });
-        canvas.discardActiveObject();
-        
-    }else{
+    // console.log(event);
+    if(deleteChecker){;}else{
         if(btnChecker){
             drawZero(zeroObj, event.pointer.x, event.pointer.y);
-            // console.log(event.pointer.x , event.pointer.y); sending this to back
+            // console.log(event.pointer.x , event.pointer.y); // sending this to back
      
 
         }else{
@@ -221,4 +185,19 @@ canvas.on('mouse:dblclick', (event) => {
 
     }
     
+});
+
+canvas.on('mouse:up', (event) => {
+
+    if (deleteChecker){
+        let selection = canvas.getActiveObjects();
+        selection.forEach((obj) => {
+            canvas.remove(obj);
+        });
+        canvas.discardActiveObject();
+        // console.log(event);
+    }
+    
+    // console.log(event.pointer.x); // sending it to back
+    // console.log(event.pointer.y); // senging it to back
 });
